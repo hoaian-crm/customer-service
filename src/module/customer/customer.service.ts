@@ -28,6 +28,10 @@ export class CustomerService {
     }
   }
 
+  async update() {
+    return 'hello';
+  }
+
   async deleteCustomers(dto: { ids: number[] }) {
     try {
       const pro = await this.customerRepository.delete({

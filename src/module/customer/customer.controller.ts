@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { FindCustomerDto } from './dto/find-customer.dto';
 import { Response } from 'src/prototypes/formatters/response';
@@ -19,6 +27,9 @@ export class CustomerController {
     const data = await this.customerService.create(dto);
     return Response.createSuccess(data);
   }
+
+  @Patch()
+  async update() {}
 
   @Delete()
   async deleteCustomer(@Body() dto: { ids: number[] }) {

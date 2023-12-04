@@ -18,7 +18,6 @@ import { CustomerModule } from './module/customer/customer.module';
       logging: process.env.NODE_ENV === 'development',
     }),
 
-    // App Module
     CustomerModule,
   ],
 })
