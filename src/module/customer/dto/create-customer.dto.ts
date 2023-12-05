@@ -1,4 +1,3 @@
-import { Transform } from 'class-transformer';
 import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateCustomerDto {
@@ -12,7 +11,6 @@ export class CreateCustomerDto {
   phone: string;
 
   @IsNumber()
-  @Transform(() => Number)
   age: number;
 
   @IsString()

@@ -3,14 +3,16 @@ import {
   Controller,
   Delete,
   Get,
-  Patch,
+  Param,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { FindCustomerDto } from './dto/find-customer.dto';
-import { Response } from 'src/prototypes/formatters/response';
 import { CreateCustomerDto } from './dto/create-customer.dto';
+import { Response } from 'crm-prototypes';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Controller('customers')
 export class CustomerController {
@@ -28,8 +30,11 @@ export class CustomerController {
     return Response.createSuccess(data);
   }
 
-  @Patch()
-  async update() {}
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateCustomerDto) {
+    const result = await this.customerService.update(+id, body);
+    return Response.updateSuccess(result);
+  }
 
   @Delete()
   async deleteCustomer(@Body() dto: { ids: number[] }) {
