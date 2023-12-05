@@ -66,7 +66,7 @@ export class CustomerService {
       console.log('error', error);
       await queryRunner.rollbackTransaction();
     } finally {
-      await queryRunner.commitTransaction();
+      await queryRunner.release();
     }
   }
 
