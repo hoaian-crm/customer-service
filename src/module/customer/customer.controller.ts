@@ -31,7 +31,7 @@ export class CustomerController {
     return Response.findSuccess(result);
   }
 
-  // @ApiMetaData({
+  @ApiMetaData({
     name: 'Create customer',
     description: 'Allow create customer',
     policy: 'customers:create',
