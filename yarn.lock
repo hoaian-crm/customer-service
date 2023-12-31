@@ -2135,6 +2135,22 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
+crm-permission@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/crm-permission/-/crm-permission-1.0.8.tgz#1c4d25dfe0875c975428aef8762fe2be12d36bb6"
+  integrity sha512-tc+IOLWJrgPFxuf8JEPlRe0D/wvDyNt6yoRze2lvLfw8y9Gsqy6GKvgrwoL62S2dfDVNLRCBZC407pZlJ9aNSg==
+  dependencies:
+    "@nestjs/common" "^10.0.0"
+    "@nestjs/config" "^3.1.1"
+    "@nestjs/core" "^10.0.0"
+    "@nestjs/mapped-types" "*"
+    "@nestjs/platform-express" "^10.0.0"
+    "@nestjs/typeorm" "^10.0.1"
+    pg "^8.11.3"
+    reflect-metadata "^0.1.13"
+    rxjs "^7.8.1"
+    typeorm "^0.3.17"
+
 crm-prototypes@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/crm-prototypes/-/crm-prototypes-1.0.6.tgz#127c2871dd9f6df2dea20c535d3fd2507a6be2ce"

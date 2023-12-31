@@ -13,29 +13,51 @@ import { FindCustomerDto } from './dto/find-customer.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { Response } from 'crm-prototypes';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { ApiMetaData, ControllerMetaData } from 'crm-permission';
 
+@ControllerMetaData('customers')
 @Controller('customers')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
+  @ApiMetaData({
+    name: 'Get customers',
+    description: 'Allow get many customers in system',
+    policy: 'customers:get_all',
+  })
   @Get()
   async findAll(@Query() query: FindCustomerDto) {
     const result = await this.customerService.findAndCount(query);
     return Response.findSuccess(result);
   }
 
+  // @ApiMetaData({
+    name: 'Create customer',
+    description: 'Allow create customer',
+    policy: 'customers:create',
+  })
   @Post()
   async create(@Body() dto: CreateCustomerDto) {
     const data = await this.customerService.create(dto);
     return Response.createSuccess(data);
   }
 
+  @ApiMetaData({
+    name: 'Update customer',
+    description: 'Allow update customer',
+    policy: 'customers:update',
+  })
   @Put(':id')
   async update(@Param('id') id: string, @Body() body: UpdateCustomerDto) {
     const result = await this.customerService.update(+id, body);
     return Response.updateSuccess(result);
   }
 
+  @ApiMetaData({
+    name: 'Delete customer',
+    description: 'Allow delete customer',
+    policy: 'customers:delete',
+  })
   @Delete()
   async deleteCustomer(@Body() dto: { ids: number[] }) {
     const data = await this.customerService.deleteCustomers(dto);
