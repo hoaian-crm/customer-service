@@ -8,12 +8,12 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { CustomerService } from './customer.service';
-import { FindCustomerDto } from './dto/find-customer.dto';
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { Response } from 'crm-prototypes';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { ApiMetaData, ControllerMetaData } from 'crm-permission';
+import { Response } from 'crm-prototypes';
+import { CustomerService } from './customer.service';
+import { CreateCustomerDto } from './dto/create-customer.dto';
+import { FindCustomerDto } from './dto/find-customer.dto';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @ControllerMetaData('customers')
 @Controller('customers')
