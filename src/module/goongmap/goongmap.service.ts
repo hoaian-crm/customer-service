@@ -20,6 +20,17 @@ export type Place = {
   };
 };
 
+export type PlaceDetail = {
+  place_id: string;
+  geometry: {
+    location: {
+      lat: number;
+      lng: number;
+    };
+  };
+  name: string;
+};
+
 @Injectable()
 export class GoongService {
   private core: AxiosInstance;
@@ -27,9 +38,7 @@ export class GoongService {
     this.core = axios.create({
       baseURL: 'https://rsapi.goong.io',
       params: {
-        query: {
-          api_key: process.env.GOONG_MAP_API_KEY,
-        },
+        api_key: process.env.GOONG_MAP_API_KEY,
       },
     });
   }
@@ -46,6 +55,19 @@ export class GoongService {
       .catch((error) => {
         console.log(error);
         throw new BadRequestException(error);
+      });
+  }
+
+  async getPlaceDetail(placeId: string): Promise<PlaceDetail> {
+    return this.core
+      .get('/Place/Detail', {
+        params: {
+          place_id: placeId,
+        },
+      })
+      .then((response) => response.data.result)
+      .catch((error) => {
+        throw new BadRequestException(error.message);
       });
   }
 }

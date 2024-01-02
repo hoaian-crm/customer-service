@@ -11,14 +11,8 @@ export class Address {
   @PrimaryColumn()
   id: string;
 
-  @Column({})
-  name: string;
-
-  @Column({})
-  long: number;
-
-  @Column({})
-  lat: number;
+  @Column({ type: 'jsonb' })
+  metadata: object;
 
   @CreateDateColumn()
   createdAt: Date;

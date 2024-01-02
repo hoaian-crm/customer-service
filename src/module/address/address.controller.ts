@@ -3,8 +3,9 @@ import { ApiMetaData, ControllerMetaData } from 'crm-permission';
 import { Response } from 'crm-prototypes';
 import { AddressService } from './address.service';
 import { AutoComplete } from './dto/auto_complete';
+import { GetAddressDetail } from './dto/get_detail';
 
-@ControllerMetaData('address')
+@ControllerMetaData('customers')
 @Controller('address')
 export class AddressController {
   constructor(private addressService: AddressService) {}
@@ -21,5 +22,16 @@ export class AddressController {
       result.predictions,
       result.predictions.length,
     ]);
+  }
+
+  @ApiMetaData({
+    name: 'Get address detail',
+    description: 'Allow get address detail',
+    policy: 'address:get_one',
+  })
+  @Get('')
+  async getAddress(@Query() query: GetAddressDetail) {
+    const result = await this.addressService.getDetail(query);
+    return Response.getSuccess(result);
   }
 }
