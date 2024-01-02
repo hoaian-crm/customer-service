@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindCustomerDto } from './dto/find-customer.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { AddressService } from '../address/address.service';
 
 @Injectable()
 export class CustomerService {
@@ -13,6 +14,7 @@ export class CustomerService {
     private customerRepository: Repository<Customer>,
 
     private dataSource: DataSource,
+    private addressService: AddressService,
   ) {}
 
   async findAndCount(query: FindCustomerDto) {
@@ -23,23 +25,14 @@ export class CustomerService {
   }
 
   async create(dto: CreateCustomerDto) {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
-    try {
-      const customer = this.customerRepository.create(dto);
-
-      const result = await queryRunner.manager.save(customer);
-      await queryRunner.commitTransaction();
-
-      return result;
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw new BadRequestException('email or identify doesnt exist');
-    } finally {
-      await queryRunner.release();
-    }
+    const address = await this.addressService.getDetail({
+      placeId: dto.placeId,
+    });
+    const customer = this.customerRepository.create({
+      ...dto,
+      address: address
+    });
+    return this.customerRepository.save(customer);
   }
 
   async findById(id: number) {

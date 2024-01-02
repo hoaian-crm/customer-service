@@ -1,7 +1,11 @@
+import { Address } from 'src/module/address/address.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,8 +27,11 @@ export class Customer {
   @Column()
   age: number;
 
-  @Column()
-  address: string;
+  @ManyToOne(() => Address)
+  @JoinColumn({
+    name: 'address_id',
+  })
+  address: Address;
 
   @Column()
   identify: string;

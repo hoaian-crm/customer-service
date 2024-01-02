@@ -14,7 +14,7 @@ export class CreateCustomerDto {
   age: number;
 
   @IsString()
-  address: string;
+  placeId: string;
 
   @IsOptional()
   @IsString()
