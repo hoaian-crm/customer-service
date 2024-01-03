@@ -1,10 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { configLogger } from 'crm-logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(await configLogger());
   app.setGlobalPrefix('/api/v1');
   await app.listen(process.env.APP_PORT || 3000);
 }

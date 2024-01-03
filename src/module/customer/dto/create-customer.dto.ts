@@ -8,10 +8,13 @@ export class CreateCustomerDto {
   email: string;
 
   @IsString()
+  extension: string;
+
+  @IsString()
   phone: string;
 
-  @IsNumber()
-  age: number;
+  @IsString()
+  dob: string;
 
   @IsString()
   placeId: string;
@@ -23,4 +26,5 @@ export class CreateCustomerDto {
   @IsOptional()
   @IsString()
   note: string;
+
 }

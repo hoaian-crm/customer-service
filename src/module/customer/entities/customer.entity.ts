@@ -22,10 +22,13 @@ export class Customer {
   email: string;
 
   @Column()
+  extension: string;
+
+  @Column()
   phone: string;
 
   @Column()
-  age: number;
+  dob: string;
 
   @ManyToOne(() => Address)
   @JoinColumn({
