@@ -1,12 +1,17 @@
 import { Optional } from '@nestjs/common';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
+import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 
 export class FindCustomerDto {
-  @Optional()
-  @Transform(() => Number)
-  limit: number;
+  @IsOptional()
+  @Type(() => Number)
+  limit: number = 10;
 
-  @Optional()
-  @Transform(() => Number)
-  offset: number;
+  @IsOptional()
+  @Type(() => Number)
+  offset: number = 0;
+
+  @IsString()
+  @IsOptional()
+  keyword: string = '';
 }

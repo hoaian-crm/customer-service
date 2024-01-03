@@ -27,6 +27,7 @@ export class CustomerController {
   })
   @Get()
   async findAll(@Query() query: FindCustomerDto) {
+    console.log('query: ', query)
     const result = await this.customerService.findAndCount(query);
     return Response.findSuccess(result);
   }

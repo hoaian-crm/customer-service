@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Customer } from './entities/customer.entity';
-import { DataSource, In, Repository } from 'typeorm';
+import { DataSource, In, Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindCustomerDto } from './dto/find-customer.dto';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -18,9 +18,24 @@ export class CustomerService {
   ) {}
 
   async findAndCount(query: FindCustomerDto) {
+    const searchTerm = `%${query.keyword.replace('--', '')}%`; // Ignore sql injection
     return await this.customerRepository.findAndCount({
       skip: query.offset,
       take: query.limit,
+      order: {
+        createdAt: 'DESC',
+      },
+      relations: {
+        address: true,
+      },
+      where: [
+        {
+          name: Like(searchTerm),
+        },
+        {
+          email: Like(searchTerm),
+        },
+      ],
     });
   }
 
@@ -30,7 +45,7 @@ export class CustomerService {
     });
     const customer = this.customerRepository.create({
       ...dto,
-      address: address
+      address: address,
     });
     return this.customerRepository.save(customer);
   }
