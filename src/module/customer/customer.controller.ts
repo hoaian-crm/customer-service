@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  InternalServerErrorException,
   Param,
   Post,
   Put,
@@ -14,11 +15,13 @@ import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { QueryFailedError } from 'typeorm';
+import { LoggerService } from 'crm-logger';
 
 @ControllerMetaData('customers')
 @Controller('customers')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
+  constructor(private readonly customerService: CustomerService, private readonly loggerService: LoggerService) {}
 
   @ApiMetaData({
     name: 'Get customers',
@@ -27,7 +30,7 @@ export class CustomerController {
   })
   @Get()
   async findAll(@Query() query: FindCustomerDto) {
-    console.log('query: ', query)
+    console.log('query: ', query);
     const result = await this.customerService.findAndCount(query);
     return Response.findSuccess(result);
   }
@@ -39,8 +42,12 @@ export class CustomerController {
   })
   @Post()
   async create(@Body() dto: CreateCustomerDto) {
-    const data = await this.customerService.create(dto);
-    return Response.createSuccess(data);
+    try {
+      const data = await this.customerService.create(dto);
+      return Response.createSuccess(data);
+    } catch (error) {
+      await this.loggerService.handleError(error, {field: 'Customer'})
+    }
   }
 
   @ApiMetaData({
