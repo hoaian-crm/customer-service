@@ -80,7 +80,7 @@ export class CustomerService {
 
   async deleteCustomers(dto: { ids: number[] }) {
     try {
-      const pro = await this.customerRepository.delete({
+      const pro = await this.customerRepository.softDelete({
         id: In(dto.ids),
       });
       return pro['affected'];
