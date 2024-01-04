@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { Customer } from './entities/customer.entity';
-import { DataSource, In, Like, Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindCustomerDto } from './dto/find-customer.dto';
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { DataSource, In, Like, Repository } from 'typeorm';
 import { AddressService } from '../address/address.service';
+import { CreateCustomerDto } from './dto/create-customer.dto';
+import { FindCustomerDto } from './dto/find-customer.dto';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { Customer } from './entities/customer.entity';
 
 @Injectable()
 export class CustomerService {
@@ -79,13 +79,9 @@ export class CustomerService {
   }
 
   async deleteCustomers(dto: { ids: number[] }) {
-    try {
-      const pro = await this.customerRepository.softDelete({
-        id: In(dto.ids),
-      });
-      return pro['affected'];
-    } catch (error) {
-      throw new BadRequestException('something went wrong');
-    }
+    const pro = await this.customerRepository.softDelete({
+      id: In(dto.ids),
+    });
+    return pro['affected'];
   }
 }
