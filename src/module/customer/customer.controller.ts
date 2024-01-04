@@ -3,25 +3,26 @@ import {
   Controller,
   Delete,
   Get,
-  InternalServerErrorException,
   Param,
   Post,
   Put,
-  Query,
+  Query
 } from '@nestjs/common';
+import { LoggerService } from 'crm-logger';
 import { ApiMetaData, ControllerMetaData } from 'crm-permission';
 import { Response } from 'crm-prototypes';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { QueryFailedError } from 'typeorm';
-import { LoggerService } from 'crm-logger';
 
 @ControllerMetaData('customers')
 @Controller('customers')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService, private readonly loggerService: LoggerService) {}
+  constructor(
+    private readonly customerService: CustomerService,
+    private readonly loggerService: LoggerService,
+  ) {}
 
   @ApiMetaData({
     name: 'Get customers',
@@ -46,7 +47,9 @@ export class CustomerController {
       const data = await this.customerService.create(dto);
       return Response.createSuccess(data);
     } catch (error) {
-      await this.loggerService.handleError(error, {field: 'Customer'})
+      await this.loggerService.handleError(error, {
+        field: 'Customer',
+      });
     }
   }
 
