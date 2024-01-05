@@ -4,6 +4,7 @@ import { DataSource, In, Like, Repository } from 'typeorm';
 import { AddressService } from '../address/address.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
+import { GetDetailDto } from './dto/get-detail-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Customer } from './entities/customer.entity';
 
@@ -37,6 +38,13 @@ export class CustomerService {
         },
       ],
     });
+  }
+
+  async getDetail(param: GetDetailDto) {
+    const customer = await this.customerRepository.findOne({
+      where: { id: param.customerId },
+    });
+    return customer;
   }
 
   async create(dto: CreateCustomerDto) {

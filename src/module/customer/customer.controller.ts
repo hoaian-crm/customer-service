@@ -6,7 +6,7 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
 import { LoggerService } from 'crm-logger';
 import { ApiMetaData, ControllerMetaData } from 'crm-permission';
@@ -14,6 +14,7 @@ import { Response } from 'crm-prototypes';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
+import { GetDetailDto } from './dto/get-detail-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @ControllerMetaData('customers')
@@ -31,9 +32,19 @@ export class CustomerController {
   })
   @Get()
   async findAll(@Query() query: FindCustomerDto) {
-    console.log('query: ', query);
     const result = await this.customerService.findAndCount(query);
     return Response.findSuccess(result);
+  }
+
+  @ApiMetaData({
+    name: 'Get customer detail',
+    description: 'Allow get detail of customer',
+    policy: 'customers:get_detail',
+  })
+  @Get('/:customerId')
+  async getCustomer(@Param() param: GetDetailDto) {
+    const result = await this.customerService.getDetail(param);
+    return Response.getSuccess(result);
   }
 
   @ApiMetaData({
