@@ -34,6 +34,7 @@
     "crm-logger": "^1.0.9",
     "crm-permission": "^1.0.8",
     "crm-prototypes": "^1.1.3",
+    "crm-resource-tag": "^1.1.0",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",

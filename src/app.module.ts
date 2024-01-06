@@ -25,4 +25,4 @@ import { CustomerModule } from './module/customer/customer.module';
     AddressModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

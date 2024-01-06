@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, In, Like, Repository } from 'typeorm';
+import { And, DataSource, Equal, In, Like, Or, Repository } from 'typeorm';
 import { AddressService } from '../address/address.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
