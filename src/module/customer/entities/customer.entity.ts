@@ -1,4 +1,4 @@
-import { FilterTag, RemoveTag, ResourceTag, TagRelation } from 'crm-resource-tag';
+import { FilterTag, ResourceTag, TagRelation } from 'crm-resource-tag';
 import { Address } from 'src/module/address/address.entity';
 import {
   Column,
@@ -53,5 +53,5 @@ export class Customer {
   tags: ResourceTag;
 
   @FilterTag('customers')
-  removeTag() {}
+  removeTag() { }
 }
