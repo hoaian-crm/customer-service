@@ -8,7 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { LoggerService } from 'crm-logger';
+import { LoggerService } from '@relationc/logger';
 import { ApiMetaData, ControllerMetaData } from 'crm-permission';
 import { Response } from 'crm-prototypes';
 import { CustomerService } from './customer.service';
@@ -23,7 +23,7 @@ export class CustomerController {
   constructor(
     private readonly customerService: CustomerService,
     private readonly loggerService: LoggerService,
-  ) {}
+  ) { }
 
   @ApiMetaData({
     name: 'Get customers',

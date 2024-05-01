@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { configLogger } from 'crm-logger';
+import { configLogger } from '@relationc/logger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
