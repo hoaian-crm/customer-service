@@ -32,15 +32,19 @@ export class CustomerService {
       where: [
         {
           name: Like(searchTerm),
+          deletedAt: query.isDeleted === 'false' ? IsNull() : Not(IsNull())
         },
         {
           email: Like(searchTerm),
+          deletedAt: query.isDeleted === 'false' ? IsNull() : Not(IsNull())
         },
         {
-          deletedAt: query.isDeleted === false ? IsNull() : Not(IsNull())
+          deletedAt: query.isDeleted === 'false' ? IsNull() : Not(IsNull())
         }
       ],
+      withDeleted: query.isDeleted === 'true' ? true : false
     });
+
   }
 
   async getDetail(param: GetDetailDto) {

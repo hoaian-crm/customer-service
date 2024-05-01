@@ -1,5 +1,5 @@
-import { Type } from 'class-transformer';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import { IsBoolean, IsBooleanString, IsOptional, IsString } from 'class-validator';
 
 export class FindCustomerDto {
   @IsOptional()
@@ -14,7 +14,7 @@ export class FindCustomerDto {
   @IsOptional()
   keyword: string = '';
 
-  @IsBoolean()
+  @IsString()
   @IsOptional()
-  isDeleted: boolean = false;
+  isDeleted: string = 'false';
 }
