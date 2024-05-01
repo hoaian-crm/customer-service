@@ -27,4 +27,8 @@ export class CreateCustomerDto {
   @IsString()
   note: string;
 
+  @IsOptional()
+  @IsString()
+  avatar: string;
+
 }

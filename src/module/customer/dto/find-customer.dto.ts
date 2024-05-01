@@ -1,6 +1,5 @@
-import { Optional } from '@nestjs/common';
-import { Transform, Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class FindCustomerDto {
   @IsOptional()
@@ -14,4 +13,8 @@ export class FindCustomerDto {
   @IsString()
   @IsOptional()
   keyword: string = '';
+
+  @IsBoolean()
+  @IsOptional()
+  isDeleted: boolean = false;
 }

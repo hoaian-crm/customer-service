@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { And, DataSource, Equal, In, Like, Or, Repository } from 'typeorm';
+import { And, DataSource, Equal, In, IsNull, Like, Not, Or, Repository } from 'typeorm';
 import { AddressService } from '../address/address.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { FindCustomerDto } from './dto/find-customer.dto';
@@ -16,7 +16,7 @@ export class CustomerService {
 
     private dataSource: DataSource,
     private addressService: AddressService,
-  ) {}
+  ) { }
 
   async findAndCount(query: FindCustomerDto) {
     const searchTerm = `%${query.keyword.replace('--', '')}%`; // Ignore sql injection
@@ -36,6 +36,9 @@ export class CustomerService {
         {
           email: Like(searchTerm),
         },
+        {
+          deletedAt: query.isDeleted === false ? IsNull() : Not(IsNull())
+        }
       ],
     });
   }
