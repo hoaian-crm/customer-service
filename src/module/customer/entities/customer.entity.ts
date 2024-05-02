@@ -43,6 +43,9 @@ export class Customer {
   @Column()
   avatar: string;
 
+  @Column()
+  note: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
